@@ -1,0 +1,23 @@
+branch 1 events: [{'id': 2, 'name': 'deposit_propagate_request', 'clock': 4}, {'id': 2, 'name': 'deposit_propagate_execute', 'clock': 5}, {'id': 4, 'name': 'withdraw_propagate_request', 'clock': 6}, {'id': 4, 'name': 'withdraw_propagate_execute', 'clock': 7}]
+branch 2 events: [{'id': 2, 'name': 'deposit_request', 'clock': 2}, {'id': 2, 'name': 'deposit_execute', 'clock': 3}, {'id': 2, 'name': 'deposit_propagate_response', 'clock': 6}, {'id': 2, 'name': 'deposit_propagate_response', 'clock': 11}, {'id': 2, 'name': 'deposit_response', 'clock': 12}, {'id': 4, 'name': 'withdraw_propagate_request', 'clock': 13}, {'id': 4, 'name': 'withdraw_propagate_execute', 'clock': 14}]
+branch 3 events: [{'id': 4, 'name': 'withdraw_request', 'clock': 2}, {'id': 4, 'name': 'withdraw_execute', 'clock': 3}, {'id': 4, 'name': 'withdraw_propagate_response', 'clock': 8}, {'id': 2, 'name': 'deposit_propagate_request', 'clock': 9}, {'id': 2, 'name': 'deposit_propagate_execute', 'clock': 10}, {'id': 4, 'name': 'withdraw_propagate_response', 'clock': 15}, {'id': 4, 'name': 'withdraw_response', 'clock': 16}]
+
+{'id': 2, 'name': 'deposit_request', 'clock': 2}
+{'id': 2, 'name': 'deposit_execute', 'clock': 3}
+{'id': 2, 'name': 'deposit_propagate_request', 'clock': 4}
+{'id': 2, 'name': 'deposit_propagate_execute', 'clock': 5}
+{'id': 2, 'name': 'deposit_propagate_response', 'clock': 6}
+{'id': 2, 'name': 'deposit_propagate_request', 'clock': 9}
+{'id': 2, 'name': 'deposit_propagate_execute', 'clock': 10}
+{'id': 2, 'name': 'deposit_propagate_response', 'clock': 11}
+{'id': 2, 'name': 'deposit_response', 'clock': 12}
+
+{'id': 4, 'name': 'withdraw_request', 'clock': 2}
+{'id': 4, 'name': 'withdraw_execute', 'clock': 3}
+{'id': 4, 'name': 'withdraw_propagate_request', 'clock': 6}
+{'id': 4, 'name': 'withdraw_propagate_execute', 'clock': 7}
+{'id': 4, 'name': 'withdraw_propagate_response', 'clock': 8}
+{'id': 4, 'name': 'withdraw_propagate_request', 'clock': 13}
+{'id': 4, 'name': 'withdraw_propagate_execute', 'clock': 14}
+{'id': 4, 'name': 'withdraw_propagate_response', 'clock': 15}
+{'id': 4, 'name': 'withdraw_response', 'clock': 16}
