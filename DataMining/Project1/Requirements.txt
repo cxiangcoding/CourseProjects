@@ -1,0 +1,7 @@
+Steps to Execute Code:
+1.	python3 main.py
+NOTE: [add any necessary notes]
+    Assume test files CGMData.csv and InsulinData.csv are under the same directory. 
+Link to resource(s) [if/as needed]
+
+Further step-by-step instructions if/as needed
