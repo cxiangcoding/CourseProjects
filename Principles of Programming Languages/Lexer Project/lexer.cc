@@ -14,34 +14,13 @@
 
 using namespace std;
 
-bool ispdigit8(char ch) {
-    return (ch >= '1' && ch <= '7');
-}
-
-bool isdigit8(char ch) {
-    return (ch >= '0' && ch <= '7');
-}
-
-bool ispdigit16(char ch) {
-    return ((ch >= '1' && ch <= '9') || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'));
-}
-
-bool isdigit16(char ch) {
-    return ((ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'));
-}
-
-bool ispdigit(char ch) {
-    return (ch >= '1' && ch <= '9');
-}
-
 string reserved[] = { "END_OF_FILE",
     "IF", "WHILE", "DO", "THEN", "PRINT",
     "PLUS", "MINUS", "DIV", "MULT",
     "EQUAL", "COLON", "COMMA", "SEMICOLON",
     "LBRAC", "RBRAC", "LPAREN", "RPAREN",
     "NOTEQUAL", "GREATER", "LESS", "LTEQ", "GTEQ",
-    "DOT", "NUM", "ID", "REALNUM", "BASE08NUM", "BASE16NUM",
-    "ERROR" // TODO: Add labels for new token types here (as string)
+    "DOT", "NUM", "ID", "ERROR" // TODO: Add labels for new token types here (as string)
 };
 
 #define KEYWORDS_COUNT 5
@@ -102,127 +81,30 @@ TokenType LexicalAnalyzer::FindKeywordIndex(string s)
     return ERROR;
 }
 
-Token LexicalAnalyzer::ScanNumber() {
+Token LexicalAnalyzer::ScanNumber()
+{
     char c;
-    string window;
+
     input.GetChar(c);
     if (isdigit(c)) {
-        while(!input.EndOfInput() && isdigit(c)) {
-            window += c;
-            input.GetChar(c);
-            if ( c == '.' ) {
-                window += c;
-                input.GetChar(c);
-                if ( !isdigit(c) ) 
-                    break;
-                while(!input.EndOfInput() && isdigit(c)) {
-                    window += c;
-                    input.GetChar(c);
-                }
-                input.UngetChar(c);
-                tmp.lexeme = window;
-                tmp.token_type = REALNUM;
-                tmp.line_no = line_no;
-                return tmp;
-            }
-        }
-
-        if (!input.EndOfInput()) {
-            input.UngetChar(c);
-        }
-    }
-
-    input.UngetString(window);
-    window.clear();
-    tmp.lexeme = "";
-    input.GetChar(c);
-    if ( !input.EndOfInput() && (ispdigit8(c) || c == '0')) {
-        if ( c == '0' ) {
-            window += c;
-            input.GetChar(c);
-        } else {
-            window += c;
-            input.GetChar(c);
-            while(!input.EndOfInput() && isdigit8(c)) {
-                window += c;
-                input.GetChar(c);
-            }
-        }
-        if ( c == 'x' ) {
-            window += c;
-            input.GetChar(c);
-            if ( c == '0' ) {
-                window += c;
-                input.GetChar(c);
-                if ( c == '8' ) {
-                    window += c;
-                    tmp.lexeme = window;
-                    tmp.token_type = BASE08NUM;
-                    tmp.line_no = line_no;
-                    return tmp;
-                }
-            }
-        }
-        if ( !input.EndOfInput() )
-            input.UngetChar(c);
-    } else if ( !input.EndOfInput() ) {
-        input.UngetChar(c);
-    }
-
-    input.UngetString(window);
-    window.clear();
-    input.GetChar(c);
-    if ( !input.EndOfInput() && (ispdigit16(c) || c == '0') ) {
-        if ( c == '0' ) {
-            window += c; 
-            input.GetChar(c);
-        } else {
-            while(!input.EndOfInput() && isdigit16(c)) {
-                window += c ;
-                input.GetChar(c);
-            }
-        }
-        if ( c == 'x' ) {
-            window += c;
-            input.GetChar(c);
-            if ( c == '1' ) {
-                window += c;
-                input.GetChar(c);
-                if ( c == '6' ) {
-                    window += c;
-                    tmp.lexeme = window;
-                    tmp.token_type = BASE16NUM;
-                    tmp.line_no = line_no;
-                    return tmp;
-                }
-            }
-        }
-        if  (!input.EndOfInput() )
-            input.UngetChar(c);
-    } else if ( !input.EndOfInput() ) {
-        input.UngetChar(c);
-    }
-
-    input.UngetString(window);
-    input.GetChar(c);
-    if ( isdigit(c) ) {
-        if ( c == '0' ) {
+        if (c == '0') {
             tmp.lexeme = "0";
         } else {
             tmp.lexeme = "";
-            while(!input.EndOfInput() && isdigit(c)) {
+            while (!input.EndOfInput() && isdigit(c)) {
                 tmp.lexeme += c;
                 input.GetChar(c);
             }
-            if ( !input.EndOfInput() ) {
+            if (!input.EndOfInput()) {
                 input.UngetChar(c);
             }
         }
+        // TODO: You can check for REALNUM, BASE08NUM and BASE16NUM here!
         tmp.token_type = NUM;
         tmp.line_no = line_no;
         return tmp;
     } else {
-        if ( !input.EndOfInput() ) {
+        if (!input.EndOfInput()) {
             input.UngetChar(c);
         }
         tmp.lexeme = "";
